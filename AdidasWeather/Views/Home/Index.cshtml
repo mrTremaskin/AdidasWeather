@@ -1,0 +1,103 @@
+﻿@{
+    Layout = null;
+    var lang = Context.Request.Headers["Accept-Language"].ToString().Substring(0, 2).ToLower();
+    
+}
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adidas | @(lang == "ru" ? "Погода" : "Weather")</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/lib/fa/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="https://api-maps.yandex.ru/2.1/?lang=@lang&apikey=2c850ff9-1c15-4b63-b662-dd3219aa293c&load=Map,Placemark,map.addon.balloon,SuggestView,geocode,Event,templateLayoutFactory,geolocation&mode=debug"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/ymap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="~/js/localization/@(lang).js"></script>
+</head>
+
+<body>
+    <div class="container-fluid" id="vueApp">
+        <div class="row logo">
+            <div class="col-xs-12 col-lg-12">
+                <img src="~/images/adidas-@(lang).png" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12 mapContent">
+                <form id="searchForm" v-on:submit="searchFormSubmit">
+                    <div class="input-group mb-3" style="margin: 5px;">
+                        <input type="text" class="form-control" id="search" v-bind:placeholder="locale.search">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="submit" id="searchButton"><i class="fa fa-search"></i> <span class="d-none d-md-inline-block">{{ locale.search }}</span></button>
+                        </div>
+                    </div>
+                </form>
+
+                <div id="map" class="map">
+
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4 dataContent">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td colspan="2">{{ model.cityName }} ({{ model.country }}) <br /> {{ model.description }}</td>
+                        </tr>
+                        <tr>
+                            <td align="right" style="width: 50%"><b>{{ locale.date }}</b></td>
+                            <td>{{ model.date }}</td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>{{ locale.temperature }}</b></td>
+                            <td>{{ model.temp }} ℃</td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>{{ locale.feelsLike }}</b></td>
+                            <td>{{ model.fLike }} ℃</td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>{{ locale.pressure }}</b></td>
+                            <td>{{ model.pressure }} {{ locale.mmHg }}</td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>{{ locale.humidity }}</b></td>
+                            <td>{{ model.humidity }} %</td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>{{ locale.windSpeed }}</b></td>
+                            <td>{{ model.windSpeed }} {{ locale.ms }}</td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>{{ locale.windDegree }}</b></td>
+                            <td>{{ model.windDegree }}°</td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>{{ locale.sunrise }}</b></td>
+                            <td>{{ model.sunrise }}</td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>{{ locale.sunset }}</b></td>
+                            <td>{{ model.sunset }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="spinner" id="loadSpinner">
+                    <div>
+                        <i class="fa fa-refresh fa-spin"></i> <br />
+                        <h4>{{ locale.loading }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/site.js"></script>
+    <script>
+        currentLang = '@Html.Raw(lang)';
+    </script>
+</body>
+</html>

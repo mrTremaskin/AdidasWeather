@@ -1,0 +1,64 @@
+﻿html, body {
+    height: 100%;
+}
+
+.logo {
+    height: 75px;
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+}
+
+.logo img {
+    margin: 25px;
+}
+
+.content {
+    height: calc(100vh - 75px);
+}
+
+.mapContent {
+    padding: 0 5px 0 0;
+    border-right: 1px solid lightgray;
+}
+
+.dataContent {
+    height: calc(100vh - 75px);
+    position: relative;
+    background-color: whitesmoke;
+}
+
+    .dataContent .spinner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(48,48,48,1);
+        width: 100%;
+        height: 100%;
+    }
+
+        .dataContent .spinner div {
+            position: absolute;
+            top: calc(50% - 25px);
+            color: white;
+            text-align: center;
+            width: 100%;
+        }
+        .dataContent .spinner div i {
+            font-size: 50px;
+            color: white;
+        }
+
+.map {
+    width: 100%;
+    height: calc(100vh - 134px);
+}
+
+.my-layout {
+    background-color: rgba(48,48,48,1);
+}
+
+@media screen and (max-width: 768px) {
+    div .map {
+        height: calc(35vh);
+    }
+}
