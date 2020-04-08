@@ -18,11 +18,6 @@ namespace OpenWeatherAPI
             this.apiKey = ApiKey;
         }
 
-        public async Task<Weather> GetWeather(int CityID)
-        {
-            return await GetWeather(new GeographicalCoordinates(0d, 0d));
-        }
-
         public async Task<Weather> GetWeather(GeographicalCoordinates Coord)
         {
             string result = await getData($"https://api.openweathermap.org/data/2.5/weather?lat={Coord.Lat}&lon={Coord.Lon}&appid={this.apiKey}");
